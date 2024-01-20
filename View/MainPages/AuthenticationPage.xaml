@@ -4,9 +4,69 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EnigmaClientV3.View.MainPages"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+             mc:Ignorable="d" IsTabStop="True" Focusable="True"
+             d:DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
+             d:DesignHeight="768" d:DesignWidth="1366">
+    <Grid Background="Transparent">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.05*"/>
+            <RowDefinition/>
+            <RowDefinition Height="0.105*"/>
+        </Grid.RowDefinitions>
+        <Border Background="Black" Grid.Column="1" Grid.Row="1" CornerRadius="30" Opacity="0.75"/>
+        <!--#region Number PC-->
+        <Grid Grid.RowSpan="2" Background="Transparent" ShowGridLines="True" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="50 50 0 0">
+            <Border Background="Black"/>
+            <StackPanel Margin="40 50 40 50" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Label Content="IdPC"/>
+                <Label Content="IdTypeTariff"/>
+            </StackPanel>
+        </Grid>
+        <!--#endregion-->
+        <!--#region Main container-->
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="0.25*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.05*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.05*"/>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Row="0" Grid.Column="1"  Source="/Resources/Images/AppDesign/enigma_logo.tif"/>
+            <ContentPresenter Grid.Row="1" Grid.Column="1"/>
+            <StackPanel Grid.Row="2" Grid.Column="1">
+                <Label Content="У вас нет аккаунта?"/>
+                <Label Content="Зарегистрируйтесь"/>
+            </StackPanel>
+            <Button Grid.Row="2" Grid.Column="1" Content="ВЕРНУТЬСЯ НА ГЛАВНУЮ" Visibility="Hidden"/>
+        </Grid>
+        <!--#endregion-->
+        <!--#region Time and layout container-->
+        <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal"
+                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                    Margin="0 0 10 0">
+            <Label Content="{Binding CurrentAppTime}" ContentStringFormat="HH:mm">
+                <Label.ToolTip>
+                    <ToolTip/>
+                </Label.ToolTip>
+            </Label>
+            <Border>
+                <Label>
+                    <Label.ToolTip>
+                        <ToolTip/>
+                    </Label.ToolTip>
+                </Label>
+            </Border>
+        </StackPanel>
+        <!--#endregion-->
+
     </Grid>
 </UserControl>
