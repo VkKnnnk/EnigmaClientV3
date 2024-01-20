@@ -7,8 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Images\AppDesign\closed_eye_ico.tif" />
     <None Remove="Resources\Images\AppDesign\enigma_logo.tif" />
+    <None Remove="Resources\Images\AppDesign\lock_ico.tif" />
     <None Remove="Resources\Images\AppDesign\main_background.tif" />
+    <None Remove="Resources\Images\AppDesign\opened_eye_ico.tif" />
+    <None Remove="Resources\Images\AppDesign\phone_ico.tif" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,13 +21,26 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="5.0.4" />
+    <PackageReference Include="WPFMaskedTextBox" Version="5.0.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Images\AppDesign\closed_eye_ico.tif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Images\AppDesign\enigma_logo.tif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Images\AppDesign\lock_ico.tif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Images\AppDesign\main_background.tif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\AppDesign\opened_eye_ico.tif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\AppDesign\phone_ico.tif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

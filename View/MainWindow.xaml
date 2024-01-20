@@ -6,7 +6,7 @@
         mc:Ignorable="d" ResizeMode="NoResize" WindowState="Maximized" WindowStyle="None"
         xmlns:vm="clr-namespace:EnigmaClientV3.View_Model"
         ShowInTaskbar="False" WindowStartupLocation="CenterScreen"
-        Title="MainWindow" Height="768" Width="1366">
+        Height="768" Width="1366">
     <Window.DataContext>
         <vm:MainWindowVM/>
     </Window.DataContext>
