@@ -44,7 +44,7 @@
             </Grid.ColumnDefinitions>
             <Image Grid.Row="0" Grid.Column="1"  Source="/Resources/Images/AppDesign/enigma_logo.tif"/>
             <ContentPresenter Grid.Row="1" Grid.Column="1" Content="{Binding CurrentPage}"/>
-            <StackPanel Grid.Row="2" Grid.Column="1">
+            <StackPanel Grid.Row="2" Grid.Column="1" Visibility="{Binding RegistrationButtonVisibility}">
                 <Label Content="У вас нет аккаунта?"/>
                 <Label Content="Зарегистрируйтесь">
                     <Label.InputBindings>
@@ -52,7 +52,7 @@
                     </Label.InputBindings>
                 </Label>
             </StackPanel>
-            <Button Grid.Row="2" Grid.Column="1" Content="ВЕРНУТЬСЯ НА ГЛАВНУЮ" Visibility="Hidden"/>
+            <Button Grid.Row="2" Grid.Column="1" Content="ВЕРНУТЬСЯ НА ГЛАВНУЮ" Visibility="{Binding GobackButtonVisibility}" Command="{Binding ChangePageCommand}"/>
         </Grid>
         <!--#endregion-->
         <!--#region Time and layout container-->
@@ -65,6 +65,9 @@
                 </Label.ToolTip>
             </Label>
             <Border>
+                <Border.InputBindings>
+                    <MouseBinding Gesture="LeftClick" Command="{Binding ChangeKeyboardLayoutCommand}"/>
+                </Border.InputBindings>
                 <Label Content="{Binding KeyboardLayout.TwoLetterISOLanguageName}">
                     <Label.ToolTip>
                         <ToolTip Content="{Binding KeyboardLayout.DisplayName}"/>

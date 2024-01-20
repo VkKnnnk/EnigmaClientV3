@@ -8,6 +8,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
@@ -17,10 +18,31 @@ namespace EnigmaClientV3.View_Model
     public class AuthenticationPageVM : INotifyPropertyChanged
     {
         private DateTime currentAppTime;
-        private CultureInfo keyboardLayout;
-        private readonly UserControl regPage = new RegistrationPage();
-        private readonly UserControl authPage = new AuthorizationPage();
+        private CultureInfo keyboardLayout = InputLanguageManager.Current.CurrentInputLanguage;
+        private readonly UserControl registrationPage = new RegistrationPage();
+        private readonly UserControl authorizationPage = new AuthorizationPage();
         private UserControl currentPage;
+        private Visibility registrationButtonVisibility = Visibility.Visible;
+        private Visibility gobackButtonVisibility = Visibility.Hidden;
+
+        public Visibility RegistrationButtonVisibility
+        {
+            get { return registrationButtonVisibility; }
+            set
+            {
+                registrationButtonVisibility = value;
+                OnPropertyChanged("RegistrationButtonVisibility");
+            }
+        }
+        public Visibility GobackButtonVisibility
+        {
+            get { return gobackButtonVisibility; }
+            set
+            {
+                gobackButtonVisibility = value;
+                OnPropertyChanged("GobackButtonVisibility");
+            }
+        }
         public UserControl CurrentPage
         {
             get { return currentPage; }
@@ -50,8 +72,7 @@ namespace EnigmaClientV3.View_Model
         }
         public AuthenticationPageVM()
         {
-            CurrentPage = authPage;
-            KeyboardLayout = InputLanguageManager.Current.CurrentInputLanguage;
+            CurrentPage = authorizationPage;
             InputLanguageManager.Current.InputLanguageChanged += Current_InputLanguageChanged;
             StartAppTimer().Tick += AuthenticationPageVM_Tick;
         }
@@ -72,14 +93,21 @@ namespace EnigmaClientV3.View_Model
             appTimer.Start();
             return appTimer;
         }
-        public void ChangePage()
+        private void ChangePage()
         {
-            if (CurrentPage == authPage)
-                CurrentPage = regPage;
+            if (CurrentPage == authorizationPage)
+            {
+                RegistrationButtonVisibility = Visibility.Hidden;
+                CurrentPage = registrationPage;
+                GobackButtonVisibility = Visibility.Visible;
+            }
             else
-                CurrentPage = authPage;
+            {
+                GobackButtonVisibility = Visibility.Hidden;
+                CurrentPage = authorizationPage;
+                RegistrationButtonVisibility = Visibility.Visible;
+            }
         }
-
         private RelayCommand changePageCommand;
         public RelayCommand ChangePageCommand
         {
@@ -91,6 +119,25 @@ namespace EnigmaClientV3.View_Model
                 });
             }
         }
+        private void ChangeKeyboardLayout()
+        {
+            if (keyboardLayout.Name == "ru-RU")
+                InputLanguageManager.Current.CurrentInputLanguage = new("en-US");
+            else
+                InputLanguageManager.Current.CurrentInputLanguage = new("ru-RU");
+        }
+        private RelayCommand changeKeyboardLayoutCommand;
+        public RelayCommand ChangeKeyboardLayoutCommand
+        {
+            get
+            {
+                return changeKeyboardLayoutCommand ?? new RelayCommand(obj =>
+                {
+                    ChangeKeyboardLayout();
+                });
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {

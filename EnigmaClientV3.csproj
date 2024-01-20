@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <None Remove="Resources\Images\AppDesign\enigma_logo.tif" />
+    <None Remove="Resources\Images\AppDesign\main_background.tif" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,6 +21,9 @@
 
   <ItemGroup>
     <Resource Include="Resources\Images\AppDesign\enigma_logo.tif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\AppDesign\main_background.tif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
