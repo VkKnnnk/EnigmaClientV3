@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EnigmaClientV3.View_Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,7 @@ namespace EnigmaClientV3.View
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MainWindowVM();
         }
     }
 }
