@@ -3,10 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:EnigmaClientV3.View.MainPages"
+             xmlns:vm="clr-namespace:EnigmaClientV3.View_Model"
              mc:Ignorable="d" IsTabStop="True" Focusable="True"
-             d:DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
              d:DesignHeight="768" d:DesignWidth="1366">
+    <UserControl.DataContext>
+        <vm:AuthenticationPageVM/>
+    </UserControl.DataContext>
     <Grid Background="Transparent">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -41,10 +43,14 @@
                 <ColumnDefinition Width="0.05*"/>
             </Grid.ColumnDefinitions>
             <Image Grid.Row="0" Grid.Column="1"  Source="/Resources/Images/AppDesign/enigma_logo.tif"/>
-            <ContentPresenter Grid.Row="1" Grid.Column="1"/>
+            <ContentPresenter Grid.Row="1" Grid.Column="1" Content="{Binding CurrentPage}"/>
             <StackPanel Grid.Row="2" Grid.Column="1">
                 <Label Content="У вас нет аккаунта?"/>
-                <Label Content="Зарегистрируйтесь"/>
+                <Label Content="Зарегистрируйтесь">
+                    <Label.InputBindings>
+                        <MouseBinding Gesture="LeftClick" Command="{Binding ChangePageCommand}"/>
+                    </Label.InputBindings>
+                </Label>
             </StackPanel>
             <Button Grid.Row="2" Grid.Column="1" Content="ВЕРНУТЬСЯ НА ГЛАВНУЮ" Visibility="Hidden"/>
         </Grid>
@@ -55,13 +61,13 @@
                     Margin="0 0 10 0">
             <Label Content="{Binding CurrentAppTime}" ContentStringFormat="HH:mm">
                 <Label.ToolTip>
-                    <ToolTip/>
+                    <ToolTip Content="{Binding CurrentAppTime}" ContentStringFormat="dd MMMM yyyy dddd"/>
                 </Label.ToolTip>
             </Label>
             <Border>
-                <Label>
+                <Label Content="{Binding KeyboardLayout.TwoLetterISOLanguageName}">
                     <Label.ToolTip>
-                        <ToolTip/>
+                        <ToolTip Content="{Binding KeyboardLayout.DisplayName}"/>
                     </Label.ToolTip>
                 </Label>
             </Border>
