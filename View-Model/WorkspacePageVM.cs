@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace EnigmaClientV3.View_Model
 {
-    public class WorkspacePageVM
+    public class WorkspacePageVM : BaseVM
     {
+        public WorkspacePageVM()
+        {
+
+        }
     }
 }

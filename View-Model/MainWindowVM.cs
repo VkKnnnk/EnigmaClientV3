@@ -12,7 +12,7 @@ using System.Windows.Controls;
 
 namespace EnigmaClientV3.View_Model
 {
-    public class MainWindowVM : INotifyPropertyChanged
+    public class MainWindowVM : BaseVM
     {
         private readonly UserControl authenticationPage = new AuthenticationPage();
         private readonly UserControl workspacePage = new WorkspacePage();
@@ -40,17 +40,12 @@ namespace EnigmaClientV3.View_Model
                 Application.Current.Shutdown();
             }
         }
-        public void ChangePage()
+        protected void ChangeMainPage()
         {
             if (CurrentPage == authenticationPage)
                 CurrentPage = workspacePage;
             else
                 CurrentPage = authenticationPage;
-        }
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }

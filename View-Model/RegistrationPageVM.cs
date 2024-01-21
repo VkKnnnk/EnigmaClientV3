@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace EnigmaClientV3.View_Model
 {
-    public class RegistrationPageVM
+    public class RegistrationPageVM : BaseVM
     {
+        public RegistrationPageVM()
+        {
+                
+        }
     }
 }

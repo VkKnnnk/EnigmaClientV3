@@ -15,7 +15,7 @@ using System.Windows.Threading;
 
 namespace EnigmaClientV3.View_Model
 {
-    public class AuthenticationPageVM : INotifyPropertyChanged
+    public class AuthenticationPageVM : BaseVM
     {
         private DateTime currentAppTime;
         private CultureInfo keyboardLayout = InputLanguageManager.Current.CurrentInputLanguage;
@@ -138,10 +138,5 @@ namespace EnigmaClientV3.View_Model
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
     }
 }
