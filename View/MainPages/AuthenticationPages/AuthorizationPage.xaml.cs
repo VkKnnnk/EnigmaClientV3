@@ -8,7 +8,6 @@ namespace EnigmaClientV3.View.MainPages.AuthenticationPages
         public AuthorizationPage()
         {
             InitializeComponent();
-            DataContext = new AuthorizationPageVM();
         }
     }
 }

@@ -8,7 +8,6 @@ namespace EnigmaClientV3.View
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainWindowVM();
         }
     }
 }
