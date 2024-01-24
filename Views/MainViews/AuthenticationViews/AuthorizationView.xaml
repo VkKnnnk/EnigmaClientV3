@@ -1,0 +1,102 @@
+﻿<UserControl x:Class="EnigmaClientV3.Views.MainViews.AuthenticationViews.AuthorizationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:wpfx="clr-namespace:WPFMaskedTextBox;assembly=WPFMaskedTextBox"
+             xmlns:vm="clr-namespace:EnigmaClientV3.View_Models"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <vm:AuthorizationViewVM/>
+    </UserControl.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.12*"/>
+            <RowDefinition Height="15"/>
+            <RowDefinition Height="0.12*"/>
+            <RowDefinition Height="0.3*"/>
+            <RowDefinition Height="0.01*"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0" />
+        <Border Grid.Row="0"/>
+        <Border Grid.Row="2"/>
+        <Border Grid.Row="2"/>
+        <!--#region Login container-->
+        <Grid Grid.Row="0" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.2*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.2*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.7*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.7*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.7*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="0.7*"/>
+                </Grid.RowDefinitions>
+                <Image Grid.Column="1" Grid.Row="1" Source="/Resources/Images/AppDesign/phone_ico.tif"/>
+            </Grid>
+            <wpfx:MaskedTextBox Grid.Column="1" Text=""/>
+        </Grid>
+        <!--#endregion-->
+        <!--#region Password container-->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.2*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.2*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.7*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.7*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.7*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="0.7*"/>
+                </Grid.RowDefinitions>
+                <Image Grid.Column="1" Grid.Row="1" Source="/Resources/Images/AppDesign/lock_ico.tif"/>
+            </Grid>
+            <TextBox Grid.Column="1" Text="Введите пароль" Opacity="0.5" IsEnabled="False"/>
+            <DockPanel Grid.Column="1">
+                <TextBox Text="" Visibility="Hidden"
+                         Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=DockPanel}, Path=ActualWidth}"/>
+            </DockPanel>
+            <DockPanel Grid.Column="1">
+                <PasswordBox
+                              Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=DockPanel}, Path=ActualWidth}"/>
+            </DockPanel>
+            <Grid Grid.Column="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.5*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="0.5*"/>
+                </Grid.RowDefinitions>
+                <Image Grid.Column="1" Grid.Row="1" Source="/Resources/Images/AppDesign/closed_eye_ico.tif">
+                    <Image.ToolTip>
+                        <ToolTip>
+                            <Label Content="Показать пароль" Opacity="0.9"/>
+                        </ToolTip>
+                    </Image.ToolTip>
+                </Image>
+            </Grid>
+        </Grid>
+        <!--#endregion-->
+        <Label Grid.Row="3" Content="Забыли пароль?" VerticalAlignment="Top"/>
+        <Label Grid.Row="3"/>
+        <Button Grid.Row="3" IsDefault="True" Content="ВОЙТИ" VerticalAlignment="Bottom"/>
+    </Grid>
+</UserControl>
