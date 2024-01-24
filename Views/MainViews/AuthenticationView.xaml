@@ -43,7 +43,7 @@
                 <ColumnDefinition Width="0.05*"/>
             </Grid.ColumnDefinitions>
             <Image Grid.Row="0" Grid.Column="1"  Source="/Resources/Images/AppDesign/enigma_logo.tif"/>
-            <ContentPresenter Grid.Row="1" Grid.Column="1" Content="{Binding CurrentPage}"/>
+            <ContentControl Grid.Row="1" Grid.Column="1" Content="{Binding DisplayedViewModel}"/>
             <StackPanel Grid.Row="2" Grid.Column="1" Visibility="{Binding RegistrationButtonVisibility}">
                 <Label Content="У вас нет аккаунта?"/>
                 <Label Content="Зарегистрируйтесь">

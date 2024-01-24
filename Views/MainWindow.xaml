@@ -14,7 +14,7 @@
         <ImageBrush ImageSource="/Resources/Images/AppDesign/main_background.tif"/>
     </Window.Background>
     <Grid>
-        <ContentPresenter Grid.Column="0" Grid.ColumnSpan="2" Content="{Binding CurrentPage}"/>
+        <ContentControl Grid.Column="0" Grid.ColumnSpan="2" Content="{Binding DisplayedViewModel}"/>
         <Grid Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="10" Width="50" Height="50" />
     </Grid>
 </Window>
