@@ -9,29 +9,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace EnigmaClientV3.View_Models
 {
     public class MainWindowVM : BaseVM
     {
-        private readonly UserControl authenticationPage = new AuthenticationView();
-        private readonly UserControl workspacePage = new WorkspaceView();
-        private UserControl currentPage;
-
-        public UserControl CurrentPage
-        {
-            get { return currentPage; }
-            set
-            {
-                currentPage = value;
-                OnPropertyChanged("CurrentPage");
-            }
-        }
         public MainWindowVM()
         {
             if (AppSession.Context.Database.CanConnect())
             {
-                CurrentPage = authenticationPage;
+                DisplayedViewModel = new AuthenticationViewVM();
                 //подрубаем винапи функции
             }
             else
@@ -40,12 +28,23 @@ namespace EnigmaClientV3.View_Models
                 Application.Current.Shutdown();
             }
         }
-        protected void ChangeMainPage()
+        #region Commands
+        private ICommand _displayAuthenticationViewCommand;
+        public ICommand DisplayAuthenticationViewCommand
+            => _displayAuthenticationViewCommand ??= new RelayCommand(DisplayAuthenticationView);
+        private ICommand _displayWorkspaceViewCommand;
+        public ICommand DisplayWorkspaceViewCommand
+            => _displayWorkspaceViewCommand ??= new RelayCommand(DisplayWorkspaceView);
+        #endregion
+        #region Methods
+        private void DisplayAuthenticationView(object param)
         {
-            if (CurrentPage == authenticationPage)
-                CurrentPage = workspacePage;
-            else
-                CurrentPage = authenticationPage;
+            NavigateTo(new AuthenticationViewVM());
         }
+        private void DisplayWorkspaceView(object param)
+        {
+            NavigateTo(new WorkspaceViewVM());
+        }
+        #endregion
     }
 }

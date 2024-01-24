@@ -17,62 +17,53 @@ namespace EnigmaClientV3.View_Models
 {
     public class AuthenticationViewVM : BaseVM
     {
-        private DateTime currentAppTime;
-        private CultureInfo keyboardLayout = InputLanguageManager.Current.CurrentInputLanguage;
-        private readonly UserControl registrationPage = new RegistrationView();
-        private readonly UserControl authorizationPage = new AuthorizationView();
-        private UserControl currentPage;
-        private Visibility registrationButtonVisibility = Visibility.Visible;
-        private Visibility gobackButtonVisibility = Visibility.Hidden;
-
+        private readonly BaseVM registrationVM = new RegistrationViewVM();
+        private readonly BaseVM authorizationVM = new AuthorizationViewVM();
+        #region Properties
+        private Visibility _registrationButtonVisibility = Visibility.Visible;
         public Visibility RegistrationButtonVisibility
         {
-            get { return registrationButtonVisibility; }
+            get { return _registrationButtonVisibility; }
             set
             {
-                registrationButtonVisibility = value;
+                _registrationButtonVisibility = value;
                 OnPropertyChanged("RegistrationButtonVisibility");
             }
         }
+        private Visibility _gobackButtonVisibility = Visibility.Hidden;
         public Visibility GobackButtonVisibility
         {
-            get { return gobackButtonVisibility; }
+            get { return _gobackButtonVisibility; }
             set
             {
-                gobackButtonVisibility = value;
+                _gobackButtonVisibility = value;
                 OnPropertyChanged("GobackButtonVisibility");
             }
         }
-        public UserControl CurrentPage
-        {
-            get { return currentPage; }
-            set
-            {
-                currentPage = value;
-                OnPropertyChanged("CurrentPage");
-            }
-        }
+        private DateTime _currentAppTime;
         public DateTime CurrentAppTime
         {
-            get { return currentAppTime; }
+            get { return _currentAppTime; }
             set
             {
-                currentAppTime = value;
+                _currentAppTime = value;
                 OnPropertyChanged("CurrentAppTime");
             }
         }
+        private CultureInfo _keyboardLayout = InputLanguageManager.Current.CurrentInputLanguage;
         public CultureInfo KeyboardLayout
         {
-            get { return keyboardLayout; }
+            get { return _keyboardLayout; }
             set
             {
-                keyboardLayout = value;
+                _keyboardLayout = value;
                 OnPropertyChanged("KeyboardLayout");
             }
         }
+        #endregion
         public AuthenticationViewVM()
         {
-            CurrentPage = authorizationPage;
+            NavigateTo(authorizationVM);
             InputLanguageManager.Current.InputLanguageChanged += Current_InputLanguageChanged;
             StartAppTimer().Tick += AuthenticationPageVM_Tick;
         }
@@ -93,35 +84,9 @@ namespace EnigmaClientV3.View_Models
             appTimer.Start();
             return appTimer;
         }
-        private void ChangePage()
-        {
-            if (CurrentPage == authorizationPage)
-            {
-                RegistrationButtonVisibility = Visibility.Hidden;
-                CurrentPage = registrationPage;
-                GobackButtonVisibility = Visibility.Visible;
-            }
-            else
-            {
-                GobackButtonVisibility = Visibility.Hidden;
-                CurrentPage = authorizationPage;
-                RegistrationButtonVisibility = Visibility.Visible;
-            }
-        }
-        private RelayCommand changePageCommand;
-        public RelayCommand ChangePageCommand
-        {
-            get
-            {
-                return changePageCommand ?? new RelayCommand(obj =>
-                {
-                    ChangePage();
-                });
-            }
-        }
         private void ChangeKeyboardLayout()
         {
-            if (keyboardLayout.Name == "ru-RU")
+            if (KeyboardLayout.Name == "ru-RU")
                 InputLanguageManager.Current.CurrentInputLanguage = new("en-US");
             else
                 InputLanguageManager.Current.CurrentInputLanguage = new("ru-RU");
