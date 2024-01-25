@@ -20,26 +20,6 @@ namespace EnigmaClientV3.View_Models
         private readonly BaseVM registrationVM = new RegistrationViewVM();
         private readonly BaseVM authorizationVM = new AuthorizationViewVM();
         #region Properties
-        private Visibility _registrationButtonVisibility = Visibility.Visible;
-        public Visibility RegistrationButtonVisibility
-        {
-            get { return _registrationButtonVisibility; }
-            set
-            {
-                _registrationButtonVisibility = value;
-                OnPropertyChanged("RegistrationButtonVisibility");
-            }
-        }
-        private Visibility _gobackButtonVisibility = Visibility.Hidden;
-        public Visibility GobackButtonVisibility
-        {
-            get { return _gobackButtonVisibility; }
-            set
-            {
-                _gobackButtonVisibility = value;
-                OnPropertyChanged("GobackButtonVisibility");
-            }
-        }
         private DateTime _currentAppTime;
         public DateTime CurrentAppTime
         {
@@ -61,47 +41,54 @@ namespace EnigmaClientV3.View_Models
             }
         }
         #endregion
+        #region Commands
+        private ICommand _displayAuthorizationViewCommand;
+        public ICommand DisplayAuthorizationViewCommand
+            => _displayAuthorizationViewCommand ??= new RelayCommand(DisplayAuthorizationView);
+        private ICommand _displayRegistrationViewCommand;
+        public ICommand DisplayRegistrationViewCommand
+            => _displayRegistrationViewCommand ??= new RelayCommand(DisplayRegistrationView);
+        private ICommand _changeKeyboardLayoutCommand;
+        public ICommand ChangeKeyboardLayoutCommand
+            => _changeKeyboardLayoutCommand ??= new RelayCommand(ChangeKeyboardLayout);
+        #endregion
         public AuthenticationViewVM()
         {
-            NavigateTo(authorizationVM);
+            DisplayAuthorizationView(null);
+            AppTimer().Tick += AuthenticationViewVM_Tick;
             InputLanguageManager.Current.InputLanguageChanged += Current_InputLanguageChanged;
-            StartAppTimer().Tick += AuthenticationPageVM_Tick;
         }
-
-        private void Current_InputLanguageChanged(object sender, InputLanguageEventArgs e)
-        {
-            KeyboardLayout = InputLanguageManager.Current.CurrentInputLanguage;
-        }
-
-        private void AuthenticationPageVM_Tick(object sender, EventArgs e)
-        {
-            CurrentAppTime = DateTime.Now;
-        }
-        public static DispatcherTimer StartAppTimer()
+        #region Methods
+        private DispatcherTimer AppTimer()
         {
             DispatcherTimer appTimer = new();
             appTimer.Interval = TimeSpan.FromSeconds(1);
             appTimer.Start();
             return appTimer;
         }
-        private void ChangeKeyboardLayout()
+        private void AuthenticationViewVM_Tick(object sender, EventArgs e)
+        {
+            CurrentAppTime = DateTime.Now;
+        }
+        private void DisplayRegistrationView(object param)
+        {
+            NavigateTo(registrationVM);
+        }
+        private void DisplayAuthorizationView(object param)
+        {
+            NavigateTo(authorizationVM);
+        }
+        private void Current_InputLanguageChanged(object sender, InputLanguageEventArgs e)
+        {
+            KeyboardLayout = InputLanguageManager.Current.CurrentInputLanguage;
+        }
+        private void ChangeKeyboardLayout(object param)
         {
             if (KeyboardLayout.Name == "ru-RU")
                 InputLanguageManager.Current.CurrentInputLanguage = new("en-US");
             else
                 InputLanguageManager.Current.CurrentInputLanguage = new("ru-RU");
         }
-        private RelayCommand changeKeyboardLayoutCommand;
-        public RelayCommand ChangeKeyboardLayoutCommand
-        {
-            get
-            {
-                return changeKeyboardLayoutCommand ?? new RelayCommand(obj =>
-                {
-                    ChangeKeyboardLayout();
-                });
-            }
-        }
-
+        #endregion
     }
 }
