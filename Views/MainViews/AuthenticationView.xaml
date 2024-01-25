@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:EnigmaClientV3.View_Models"
+             xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" IsTabStop="True" Focusable="True"
              d:DesignHeight="768" d:DesignWidth="1366">
     <UserControl.DataContext>
@@ -44,15 +45,26 @@
             </Grid.ColumnDefinitions>
             <Image Grid.Row="0" Grid.Column="1"  Source="/Resources/Images/AppDesign/enigma_logo.tif"/>
             <ContentControl Grid.Row="1" Grid.Column="1" Content="{Binding DisplayedViewModel}"/>
-            <StackPanel Grid.Row="2" Grid.Column="1" Visibility="{Binding RegistrationButtonVisibility}">
+            <StackPanel Grid.Row="2" Grid.Column="1" x:Name="goToRegistrationContainer">
                 <Label Content="У вас нет аккаунта?"/>
                 <Label Content="Зарегистрируйтесь">
-                    <Label.InputBindings>
-                        <MouseBinding Gesture="LeftClick" Command="{Binding ChangePageCommand}"/>
-                    </Label.InputBindings>
+                    <behaviors:Interaction.Triggers>
+                        <behaviors:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                            <behaviors:InvokeCommandAction Command="{Binding DisplayRegistrationViewCommand}"/>
+                            <behaviors:ChangePropertyAction TargetObject="{Binding ElementName=goToRegistrationContainer}" PropertyName="Visibility" Value="Hidden"/>
+                            <behaviors:ChangePropertyAction TargetObject="{Binding ElementName=goBackButton}" PropertyName="Visibility" Value="Visible"/>
+                        </behaviors:EventTrigger>
+                    </behaviors:Interaction.Triggers>
                 </Label>
             </StackPanel>
-            <Button Grid.Row="2" Grid.Column="1" Content="ВЕРНУТЬСЯ НА ГЛАВНУЮ" Visibility="{Binding GobackButtonVisibility}" Command="{Binding ChangePageCommand}"/>
+            <Button Grid.Row="2" Grid.Column="1" Content="ВЕРНУТЬСЯ НА ГЛАВНУЮ" Command="{Binding DisplayAuthorizationViewCommand}" x:Name="goBackButton" Visibility="Hidden">
+                <behaviors:Interaction.Triggers>
+                    <behaviors:EventTrigger EventName="Click">
+                        <behaviors:ChangePropertyAction TargetObject="{Binding ElementName=goToRegistrationContainer}" PropertyName="Visibility" Value="Visible"/>
+                        <behaviors:ChangePropertyAction TargetObject="{Binding ElementName=goBackButton}" PropertyName="Visibility" Value="Hidden"/>
+                    </behaviors:EventTrigger>
+                </behaviors:Interaction.Triggers>
+            </Button>
         </Grid>
         <!--#endregion-->
         <!--#region Time and layout container-->
