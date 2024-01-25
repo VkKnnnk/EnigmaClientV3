@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace EnigmaClientV3.View_Models
 {
@@ -19,7 +20,7 @@ namespace EnigmaClientV3.View_Models
         {
             if (AppSession.Context.Database.CanConnect())
             {
-                DisplayedViewModel = new AuthenticationViewVM();
+                DisplayAuthenticationView(null);
                 //подрубаем винапи функции
             }
             else
